@@ -54,23 +54,27 @@ for file in filelist:
     from sklearn.metrics import mean_squared_error
     from math import sqrt
 
-    start = time.time()
-    # Fitting the RF model on the training data
+    # start = time.time()
+    # # Fitting the RF model on the training data
+    # model = RandomForestRegressor(bootstrap=True, max_depth=50, max_features=3,
+    #                             min_samples_leaf=3, min_samples_split=8,
+    #                             n_estimators=100, n_jobs=-1, verbose=2)
+    # model.fit(train_x, train_y)
+    # end = time.time()
+    # print('training time: ', end-start)
+    #
+    # #%% 存储模型参数
+    # import pickle
+    # with open('param/RF_'+file+'.pkl', 'wb') as f:
+    #     pickle.dump(model, f)
+
+    #%% 读取模型参数
     model = RandomForestRegressor(bootstrap=True, max_depth=50, max_features=3,
                                 min_samples_leaf=3, min_samples_split=8,
                                 n_estimators=100, n_jobs=-1, verbose=2)
-    model.fit(train_x, train_y)
-    end = time.time()
-    print('training time: ', end-start)
 
-    #%% 存储模型参数
     import pickle
-    with open('../param/RF_'+file+'.pkl', 'wb') as f:
-        pickle.dump(model, f)
-
-    #%% 读取模型参数
-    import pickle
-    with open('../param/RF_'+file+'.pkl', 'rb') as f:
+    with open('param/RF_'+file+'.pkl', 'rb') as f:
         model = pickle.load(f)
 
     #%% 测试
@@ -152,6 +156,6 @@ for file in filelist:
 
     # 显示图例
     plt.legend(prop={'size': fontsize_tmp}, loc='lower left')
-    plt.savefig('../graph/桥面系挠度/RF'+file[0:8]+file[9:] + '.pdf', bbox_inches='tight')
+    plt.savefig('graph/RF'+file[0:8] + '.pdf', bbox_inches='tight')
 
 

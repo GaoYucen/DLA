@@ -122,7 +122,7 @@ for file in filelist:
     # # plt.plot(x[train_size+look_back:len(values)+1], test_prediction, label='prediction')
     # # plt.legend()
     # # # plt.show()
-    # # plt.savefig('../graph/桥面系挠度/RF.pdf')
+    # # plt.savefig('graph/桥面系挠度/RF.pdf')
     #
     # x = np.arange(1, len(test)-look_back+1)
     # plt.figure(figsize=(20, 10))
@@ -130,7 +130,7 @@ for file in filelist:
     # plt.plot(x, test_prediction, label='prediction')
     # plt.legend()
     # # plt.show()
-    # plt.savefig('../graph/桥面系挠度/ARIMA'+file+'.pdf')
+    # plt.savefig('graph/桥面系挠度/ARIMA'+file+'.pdf')
 
     # %%
     fontsize_tmp = 50
@@ -159,4 +159,4 @@ for file in filelist:
 
     # 显示图例
     plt.legend(prop={'size': fontsize_tmp}, loc='lower left')
-    plt.savefig('../graph/桥面系挠度/ARIMA' + file[0:8]+file[9:] + '.pdf', bbox_inches='tight')
+    plt.savefig('graph/ARIMA' + file[0:8] + '.pdf', bbox_inches='tight')

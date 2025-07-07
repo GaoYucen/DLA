@@ -76,11 +76,11 @@ for file in filelist:
     # print('训练时间：', end-start)
     #
     # #%% 存储模型参数
-    # model.save('../param/record/LSTM'+file+'.h5')
+    # model.save('param//LSTM'+file+'.h5')
 
     #%% 读取模型参数
     from keras.models import load_model
-    model = load_model('../param/record/LSTM'+file+'.h5', compile=False)
+    model = load_model('param//LSTM'+file+'.h5', compile=False)
 
     #%%
     # Making predictions on the test data
@@ -139,7 +139,7 @@ for file in filelist:
     # plt.plot(x[train_size+look_back:len(values)+1], test_prediction, label='prediction')
     # plt.legend()
     # # plt.show()
-    # plt.savefig('../graph/桥面系挠度/LSTM.pdf')
+    # plt.savefig('graph/桥面系挠度/LSTM.pdf')
 
     import matplotlib.dates as mdates
 
@@ -169,4 +169,4 @@ for file in filelist:
 
     # 显示图例
     plt.legend(prop={'size': fontsize_tmp}, loc='lower left')
-    plt.savefig('../graph/桥面系挠度/LSTM'+file[0:8]+file[9:] + '.pdf', bbox_inches='tight')
+    plt.savefig('graph/LSTM'+file[0:8] + '.pdf', bbox_inches='tight')

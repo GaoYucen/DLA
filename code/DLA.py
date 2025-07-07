@@ -85,7 +85,7 @@ for file in filelist:
         rmse = sqrt(mean_squared_error(test_y, predictions))
         print('Test RMSE: %.3f' % rmse)
 
-        model.save('../param/DLA'+file+model_name+'.h5')
+        model.save('param/DLA'+file+model_name+'.h5')
 
         return predictions
 
@@ -125,7 +125,7 @@ for file in filelist:
         model.add(Dense(look_forward))
 
         # 加在模型参数
-        model.load_weights('../param/record/DLA' + file + model_name + '.h5')
+        model.load_weights('param//DLA' + file + model_name + '.h5')
 
         # Making predictions on the test data
         predictions = model.predict(test_x)
@@ -141,7 +141,7 @@ for file in filelist:
         print('Test MSE: %.3f' % mse)
         print('Test R2: %.3f' % r2)
 
-        # model.save('../param/DLA'+file+model_name+'.h5')
+        # model.save('param/DLA'+file+model_name+'.h5')
 
         return predictions
 
@@ -185,7 +185,7 @@ for file in filelist:
     print('Test MSE: %.3f' % mse)
     print('Test R2: %.3f' % r2)
     #%%将误差写入文件
-    with open('../log/DLA'+file+'.txt', 'w') as f:
+    with open('log/DLA'+file+'.txt', 'w') as f:
         f.write(file+'\n')
         f.write('Test MAE: %.3f\n' % mae)
         f.write('Test RMSE: %.3f\n' % rmse)
@@ -228,7 +228,7 @@ for file in filelist:
     # plt.plot(x[train_size+look_back:len(values)+1], test_prediction, label='prediction')
     # plt.legend()
     # # plt.show()
-    # plt.savefig('../graph/桥面系挠度/LSTM.pdf')
+    # plt.savefig('graph/桥面系挠度/LSTM.pdf')
 
     import matplotlib.dates as mdates
 
@@ -258,4 +258,4 @@ for file in filelist:
 
     # 显示图例
     plt.legend(prop={'size': fontsize_tmp}, loc='lower left')
-    plt.savefig('../graph/桥面系挠度/DLA'+file[0:8]+file[9:] + '.pdf', bbox_inches='tight')
+    plt.savefig('graph/DLA'+file[0:8] + '.pdf', bbox_inches='tight')
