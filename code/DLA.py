@@ -23,7 +23,7 @@ def readData(filepath):
     return values
 
 #%%
-filepath = '../data/Hongfu/deflection/'
+filepath = 'data/Hongfu/deflection/'
 # 读取filepath中的文件名
 filelist = os.listdir(filepath)
 filelist.sort()
@@ -233,7 +233,7 @@ for file in filelist:
     import matplotlib.dates as mdates
 
     # 设置绘图风格
-    plt.style.use('grayscale')
+    # plt.style.use('grayscale')
 
     # 创建日期范围
     dates = pd.date_range(start='2023-06-08', end='2023-12-15')
@@ -258,4 +258,4 @@ for file in filelist:
 
     # 显示图例
     plt.legend(prop={'size': fontsize_tmp}, loc='lower left')
-    plt.savefig('../graph/桥面系挠度/DLA'+file[0:8]+file[9:]+'-gray.pdf', bbox_inches='tight')
+    plt.savefig('../graph/桥面系挠度/DLA'+file[0:8]+file[9:] + '.pdf', bbox_inches='tight')

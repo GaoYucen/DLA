@@ -5,7 +5,7 @@ import pandas as pd
 # 添加路径
 import sys
 sys.path.append("model/")
-from myAttention import *
+# from myAttention import *
 # from tqdm import tqdm
 from numpy import hstack
 import time
@@ -26,7 +26,7 @@ def readData(filepath):
     return values
 
 #%%
-filepath = '../data/Hongfu/deflection/'
+filepath = 'data/Hongfu/deflection/'
 # 读取filepath中的文件名
 filelist = os.listdir(filepath)
 filelist.sort()
@@ -114,7 +114,7 @@ for file in filelist:
     import matplotlib.pyplot as plt
 
     # 设置绘图风格
-    plt.style.use('grayscale')
+    # plt.style.use('grayscale')
     #
     # # x = np.arange(1, len(values)+1)
     # # plt.figure(figsize=(20, 10))
@@ -159,4 +159,4 @@ for file in filelist:
 
     # 显示图例
     plt.legend(prop={'size': fontsize_tmp}, loc='lower left')
-    plt.savefig('../graph/桥面系挠度/ARIMA' + file[0:8]+file[9:] + '-gray.pdf', bbox_inches='tight')
+    plt.savefig('../graph/桥面系挠度/ARIMA' + file[0:8]+file[9:] + '.pdf', bbox_inches='tight')
