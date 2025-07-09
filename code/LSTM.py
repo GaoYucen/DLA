@@ -1,9 +1,6 @@
 #%%
-# Importing necessary library
 import pandas as pd
 import numpy as np
-import sys
-sys.path.append('model/')
 from config import get_config
 import os
 import time
@@ -103,31 +100,26 @@ for file in filelist:
     print('Test MSE: %.3f' % mse)
     print('Test R2: %.3f' % r2)
 
-    #%% 构造和test数据相同长度的predictionsiction数据
+    #%% 构造和test数据相同长度的prediction数据
+    # 假设 predictions 是一个二维 numpy 数组
+    predictions = np.array(predictions)
+
     test_prediction = []
-    for i in range(len(test)-look_back):
-        # 先判断有几个数
-        flag = 0
-        if i < look_forward-1:
-            num = i+1
-        elif i > len(test)-look_back-look_forward:
-            num = len(test)-look_back-i
-            flag = 1
+    for i in range(len(test) - look_back):
+        if i < look_forward - 1:
+            num = i + 1
+            indices = [(i - j, j) for j in range(num)]
+        elif i > len(test) - look_back - look_forward:
+            num = len(test) - look_back - i
+            indices = [(i - look_forward + 1 + j, look_forward - 1 - j) for j in range(num)]
         else:
             num = look_forward
-        # 根据num添加数值
-        if flag == 0:
-            tmp = 0
-            for j in range(num):
-                tmp += predictions[i-j][j]
-            tmp = tmp/num
-            test_prediction.append(tmp)
-        else:
-            tmp = 0
-            for j in range(num):
-                tmp += predictions[i-look_forward+1+j][look_forward-1-j]
-            tmp = tmp/num
-            test_prediction.append(tmp)
+            indices = [(i - j, j) for j in range(num)]
+
+        # 使用 numpy 数组索引来获取元素并计算平均值
+        values = [predictions[row, col] for row, col in indices]
+        avg = np.mean(values)
+        test_prediction.append(avg)
 
     #%% 画图
     fontsize_tmp = 50
@@ -142,9 +134,6 @@ for file in filelist:
     # plt.savefig('graph/桥面系挠度/LSTM.pdf')
 
     import matplotlib.dates as mdates
-
-    # 设置绘图风格
-    # plt.style.use('grayscale')
 
     # 创建日期范围
     dates = pd.date_range(start='2023-06-08', end='2023-12-15')

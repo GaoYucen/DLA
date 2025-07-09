@@ -1,16 +1,10 @@
 #%%
 import numpy as np
-from numpy import array
 import pandas as pd
-# 添加路径
-import sys
-sys.path.append("model/")
-# from myAttention import *
-# from tqdm import tqdm
-from numpy import hstack
 import time
 import os
 from config import get_config
+import numpy as np
 
 params, _ = get_config()
 look_back = params.look_back
@@ -85,30 +79,25 @@ for file in filelist:
     print('Test R2: %.3f' % r2)
 
     #%% 构造和test数据相同长度的prediction数据
+    # 假设 predictions 是一个二维 numpy 数组
+    predictions = np.array(predictions)
+
     test_prediction = []
-    for i in range(len(test)-look_back):
-        # 先判断有几个数
-        flag = 0
-        if i < look_forward-1:
-            num = i+1
-        elif i > len(test)-look_back-look_forward:
-            num = len(test)-look_back-i
-            flag = 1
+    for i in range(len(test) - look_back):
+        if i < look_forward - 1:
+            num = i + 1
+            indices = [(i - j, j) for j in range(num)]
+        elif i > len(test) - look_back - look_forward:
+            num = len(test) - look_back - i
+            indices = [(i - look_forward + 1 + j, look_forward - 1 - j) for j in range(num)]
         else:
             num = look_forward
-        # 根据num添加数值
-        if flag == 0:
-            tmp = 0
-            for j in range(num):
-                tmp += predictions[i-j][j]
-            tmp = tmp/num
-            test_prediction.append(tmp)
-        else:
-            tmp = 0
-            for j in range(num):
-                tmp += predictions[i-look_forward+1+j][look_forward-1-j]
-            tmp = tmp/num
-            test_prediction.append(tmp)
+            indices = [(i - j, j) for j in range(num)]
+
+        # 使用 numpy 数组索引来获取元素并计算平均值
+        values = [predictions[row, col] for row, col in indices]
+        avg = np.mean(values)
+        test_prediction.append(avg)
 
     #%% 画图
     import matplotlib.pyplot as plt
